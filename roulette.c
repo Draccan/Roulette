@@ -1,12 +1,12 @@
 #include <stdio.h>
 
 void base(){
-          printf("   ___              _      _   _         \n |  _ \\   ___ _   _| | ___| |_| |_  ___   \n | |_) | / _ \| | | | |/ _ \\ __| __|/ _ \\ \n |  _  |( (_)| |_| | |  __/ |_| |_|  __/ \n |_|  \\_\\ \___/\__,__|_|\____|\\__|\\__|\\___| \n                                         \n");
+	printf("   ___              _      _   _         \n |  _ \\   ___ _   _| | ___| |_| |_  ___   \n | |_) | / _ \| | | | |/ _ \\ __| __|/ _ \\ \n |  _  |( (_)| |_| | |  __/ |_| |_|  __/ \n |_|  \\_\\ \___/\__,__|_|\____|\\__|\\__|\\___| \n                                         \n");
 }
 
 int main(){  
-     menu();
-     return 0;
+	menu();
+	return 0;
 }
 
 void menu(){
@@ -60,7 +60,7 @@ int crea_profilo() {
     printf("\n Inserisci il Nome \n");
     scanf("\n %s",nome);
 
-    do {//verifico che il nome non susperi i 20 caratteri
+	do {//verifico che il nome non susperi i 20 caratteri
 		if(numcaratteri>21){
 			printf("\n Il nome deve avere massimo 20 caratteri \n");
 			printf("\n Inserisci nuovamente il nome\n");
@@ -76,7 +76,7 @@ int crea_profilo() {
     }  
     fclose(punt);//chiudo il file
     for(i=0;i!=30;i++){
-        if(!strcmp(nome,controllo[i])){//comparo le due stringhe e vedo se il nome è già presente o meno
+        if(!strstr(nome,controllo[i])){//comparo le due stringhe e vedo se il nome è già presente o meno
             printf("\n Il nome inserito è già esistente \n");
             return 0;
         }
