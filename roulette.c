@@ -51,8 +51,48 @@ int esci() { //funzione che viene richiamata ogni volta che l'utente vuole uscir
 }
 
 int crea_profilo() {
-	return 0; /*se decide di tornare indietro*/
+    char nome[20],risposta;
+    char controllo[30][30];//mi servirà per vedere se il nome è già stato scelto
+    FILE *punt;//è un puntatore a FILE , ovvero punta al file accesso.txt
+    int numcaratteri,k,i;
+    
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);// Selezionoil colore del testo, in questo caso verde
+    printf("\n Inserisci il Nome \n");
+    scanf("\n %s",nome);
+
+    do {//verifico che il nome non susperi i 20 caratteri
+		if(numcaratteri>21){
+			printf("\n Il nome deve avere massimo 20 caratteri \n");
+			printf("\n Inserisci nuovamente il nome\n");
+			scanf("\n %s",nome);
+			numcaratteri=strlen(nome);
+		}
+    } while(numcaratteri>21);    
+    punt=fopen("accesso.txt","a+");//Apro il File e con "a+" lo rendo di scrittura e lettura creandolo nel caso non esista già
+    fclose(punt);
+    punt=fopen("accesso.txt","r");// apro il file in sola lettura
+    for(i=0;i!=30;i++){
+        fscanf(punt,"%s",controllo[i]);//trasferisco il contenuto del file nella matrice " controllo "
+    }  
+    fclose(punt);//chiudo il file
+    for(i=0;i!=30;i++){
+        if(!strcmp(nome,controllo[i])){//comparo le due stringhe e vedo se il nome è già presente o meno
+            printf("\n Il nome inserito è già esistente \n");
+            return 0;
+        }
+    }  
+    punt=fopen("accesso.txt","a+");//Apro il File e con "a+" lo rendo di scrittura e lettura creandolo nel caso non esista già
+    if(*punt==NULL) printf("\n Impossibile aprire il File \n");//controllo se il valore restituito al puntatore è NULL e se è NULL vuol dire che non è stato possibile aprire il file
+    fprintf(punt,nome);//mando il contenuto di nome nel file
+    fprintf(punt," - 200.000");// salvo anche affianco al nome nel file il suo credito 
+    fprintf(punt,"\n");//a fine del nome faccio in modo che si vada a capo
+    k= (int)fclose("accesso.txt");//chiudo il file salvando in modo permanente il contenuto
+    if(k==EOF)printf("\n Impossibile salvare i dati \n");//verifico se è stato possibile chiuderlo
+    printf("\n Il tuo credito iniziale è di 200 000 fish \n"); 
+                              
+    return 0; /*se decide di tornare indietro*/
 }
+
 
 void accedi_profilo() {
 	menu_giochi();
