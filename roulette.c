@@ -11,12 +11,12 @@ void base(){
 	printf("   ___              _      _   _         \n |  _ \\   ___ _   _| | ___| |_| |_  ___   \n | |_) | / _ \| | | | |/ _ \\ __| __|/ _ \\ \n |  _  |( (_)| |_| | |  __/ |_| |_|  __/ \n |_|  \\_\\ \___/\__,__|_|\____|\\__|\\__|\\___| \n                                         \n");
 }
 
-int main {  
+int main (){  
 	while (menu());
 	return 0;
 }
 
-void menu(){
+int menu(){
 	CLS; //pulisce lo schermo. la macro si trova in linux.h e win.h
 	base();
 	int scelta = 0;
@@ -113,7 +113,7 @@ int crea_profilo() {
         }
     }  
     punt = fopen("accesso.txt", "a+"); //Apro il File e con "a+" lo rendo di scrittura e lettura creandolo nel caso non esista già
-    if(*punt == NULL) printf("\n Impossibile aprire il File \n"); //controllo se il valore restituito al puntatore è NULL e se è NULL vuol dire che non è stato possibile aprire il file
+    if(punt == NULL) printf("\n Impossibile aprire il File \n"); //controllo se il valore restituito al puntatore è NULL e se è NULL vuol dire che non è stato possibile aprire il file
     fprintf(punt, nome); //mando il contenuto di nome nel file
     fprintf(punt, " - 200.000"); // salvo anche affianco al nome nel file il suo credito 
     fprintf(punt, "\n"); //a fine del nome faccio in modo che si vada a capo
@@ -129,7 +129,7 @@ void accedi_profilo() {
 	menu_giochi();
 }
 
-void menu_giochi(){	
+int menu_giochi(){	
 	int scelta = 0;
 	char input;
 	
@@ -261,7 +261,7 @@ int statistiche() {
 		}
 	} while(input != '\n');
     switch (scelta) {
-		case 0: vedi(); break; //passa come argomento che tipo di gioco è
+		case 0: vedi(); break; 
 		case 1: azzera(); break;
 		case 2: return 0;
 	}
