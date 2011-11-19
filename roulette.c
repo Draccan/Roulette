@@ -83,23 +83,19 @@ int esci() { //funzione che viene richiamata ogni volta che l'utente vuole uscir
 }
 
 int crea_profilo() {
-    char nome[20],risposta;
+    char nome[21],risposta;
     char controllo[30][30];//mi servirà per vedere se il nome è già stato scelto
     FILE *punt;//è un puntatore a FILE , ovvero punta al file accesso.txt
     int numcaratteri,k,i;
    
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);// Selezionoil colore del testo, in questo caso verde
-    printf("\n Inserisci il Nome \n");
-    scanf("\n %s",nome);
- 
-	do {//verifico che il nome non susperi i 20 caratteri
-		if(numcaratteri>21){
-		printf("\n Il nome deve avere massimo 20 caratteri \n");
-		printf("\n Inserisci nuovamente il nome\n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);// Selezionoil colore del testo, in questo caso verde 
+	do {
+		printf("\n Inserisci il Nome \n");
 		scanf("\n %s",nome);
 		numcaratteri=strlen(nome);
-		}
-    } while(numcaratteri>21);
+		if(numcaratteri>21) printf("\n Il nome deve avere massimo 20 caratteri \n");
+	} while(numcaratteri>21);
+
     punt=fopen("accesso.txt","a+");//Apro il File e con "a+" lo rendo di scrittura e lettura creandolo nel caso non esista già
     fclose(punt);
     punt=fopen("accesso.txt","r");// apro il file in sola lettura
@@ -128,21 +124,18 @@ int crea_profilo() {
 
 
 void accedi_profilo() {
-	char nome[20];
+	char nome[21];
 	FILE *punt;
 	char controllo[30][30];
 	int numcaratteri,i;
 	
-	printf("\n Inserisci il nome\n");
-	scanf("\n %s",nome);
-	numcaratteri=strlen(nome);
-	do{
-		if(numcaratteri>21){
-			printf("\n Il nome inserito è troppo lungo , riprova\n");
-			scanf("\n %s",nome);
-			numcaratteri=strlen(nome);
-		}		
+	do {
+		printf("\n Inserisci il Nome \n");
+		scanf("\n %s",nome);
+		numcaratteri=strlen(nome);
+		if(numcaratteri>21) printf("\n Il nome deve avere massimo 20 caratteri \n");
 	} while(numcaratteri>21);
+
     punt = fopen("accesso.txt", "r"); // apro il file in sola lettura
     if(punt == NULL) printf("\n Impossibile aprire il File \n");
     for(i=0; i!=30; i++) {
