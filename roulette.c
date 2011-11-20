@@ -9,13 +9,16 @@
 	#include "unix.h"
 #endif
 
-void base(){
-	printf("   ___              _      _   _         \n |  _ \\   ___ _   _| | ___| |_| |_  ___   \n | |_) | / _ \| | | | |/ _ \\ __| __|/ _ \\ \n |  _  |( (_)| |_| | |  __/ |_| |_|  __/ \n |_|  \\_\\ \___/\__,__|_|\____|\\__|\\__|\\___| \n                                         \n");
-}
+int menu(), gioca(), crediti(), esci(), crea_profilo(), accedi_profilo(), menu_giochi(), roulette_fra(), roulette_usa(), minigame(), statistiche(), vedi(), azzera(), regole(), inizia_fra(), inizia_usa(), inizia_rus(), locale_fra(), locale_usa(), online_fra(), online_usa();
+void base();
 
 int main (){  
 	while (menu());
 	return 0;
+}
+
+void base(){
+	printf("   ___              _      _   _         \n |  _ \\   ___ _   _| | ___| |_| |_  ___   \n | |_) | / _ \\| | | | |/ _ \\ __| __|/ _ \\ \n |  _  |( (_)| |_| | |  __/ |_| |_|  __/ \n |_|  \\_\\ \\___/\\__,__|_|\\____|\\__|\\__|\\___| \n                                         \n");
 }
 
 int menu(){
@@ -56,7 +59,7 @@ int gioca() {
 		CLS;
 		printf("\n Hai un profilo? (S se hai un profilo , N se devi crearne uno) \n");
 		scanf("%c",&risposta);
-		if(risposta=='s' || risposta='S')accedi_profilo();
+		if(risposta=='s' || risposta=='S')accedi_profilo();
 		else crea_profilo();
 	}
 	return 0; /*se decide di tornare indietro*/
@@ -76,14 +79,14 @@ int esci() { //funzione che viene richiamata ogni volta che l'utente vuole uscir
 	printf("Sei sicuro di voler uscire? (y/n)\n");
 	scanf("%c", &risp);
 	do {
-		if (risp == "y" || risp == "Y") quit(0);
-		else if (risp == "n" || risp == "N") return 0; //ritorna alla funzione che ha richiamato esci()
+		if (risp == 'y' || risp == 'Y') exit(0);
+		else if (risp == 'n' || risp == 'N') return 0; //ritorna alla funzione che ha richiamato esci()
 		printf("risposta non consentita!\n");
 	} while(1);
 }
 
 int crea_profilo() {
-    char nome[21],risposta;
+    char nome[21];
     char controllo[30][30];//mi servirà per vedere se il nome è già stato scelto
     FILE *punt;//è un puntatore a FILE , ovvero punta al file accesso.txt
     int numcaratteri,k,i;
@@ -110,12 +113,12 @@ int crea_profilo() {
         }
     }
     punt=fopen("accesso.txt","a+");//Apro il File e con "a+" lo rendo di scrittura e lettura creandolo nel caso non esista già
-    if(*punt==NULL) printf("\n Impossibile aprire il File \n");//controllo se il valore restituito al puntatore è NULL e se è NULL vuol dire che non è stato possibile aprire il file
+    if(punt==NULL) printf("\n Impossibile aprire il File \n");//controllo se il valore restituito al puntatore è NULL e se è NULL vuol dire che non è stato possibile aprire il file
     fprintf(punt,nome);//mando il contenuto di nome nel file
     fprintf(punt,"\n");//a fine del nome faccio in modo che si vada a capo
     fprintf(punt,"200.000");// sotto al nome ci sono le fish che possiede
     fprintf(punt,"\n");
-    k= (int)fclose("accesso.txt");//chiudo il file salvando in modo permanente il contenuto
+    k= (int)fclose(punt);//chiudo il file salvando in modo permanente il contenuto
     if(k==EOF)printf("\n Impossibile salvare i dati \n");//verifico se è stato possibile chiuderlo
     printf("\n Il tuo credito iniziale è di 200 000 fish \n");
                              
@@ -123,7 +126,7 @@ int crea_profilo() {
 }
 
 
-void accedi_profilo() {
+int accedi_profilo() {
 	char nome[21];
 	FILE *punt;
 	char controllo[30][30];
@@ -372,4 +375,3 @@ int online_fra() {
 int online_usa() {
 	
 }
-
